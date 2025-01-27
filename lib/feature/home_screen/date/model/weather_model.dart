@@ -1,18 +1,18 @@
-class ResultWeatherSearch {
+class WeatherModel {
   final String city;
   final double tempC;
   final String lastUpdated;
   final String condition;
 
-  ResultWeatherSearch({
+  WeatherModel({
     required this.city,
     required this.tempC,
     required this.lastUpdated,
     required this.condition,
   });
 
-  factory ResultWeatherSearch.fromJson(Map<String, dynamic> json) {
-    return ResultWeatherSearch(
+  factory WeatherModel.fromJson(Map<String, dynamic> json) {
+    return WeatherModel(
       city: json['location']['name'],
       tempC: json['current']['temp_c'],
       lastUpdated: json['current']['last_updated'],

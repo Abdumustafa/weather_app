@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:weather/feature/home_screen/date/model/result_weather_search.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/core/helper/string_to_data_type.dart';
+import 'package:weather/feature/home_screen/date/model/weather_model.dart';
+import 'package:weather/feature/home_screen/logic/get_weather_cubit.dart';
 
 class WeatherBody extends StatelessWidget {
-  const WeatherBody({super.key, required this.data});
-  final ResultWeatherSearch data ;
+  WeatherBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    WeatherModel dataModel =
+        BlocProvider.of<GetWeatherCubit>(context).dataWeatherModel;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -22,14 +29,14 @@ class WeatherBody extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  data.city,
+                  dataModel.city,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30),
                 ),
                 Text(
-                  "update at: ${data.lastUpdated}",
+                  "update at: ${stringToDataType(dataModel.lastUpdated).hour}",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
@@ -44,7 +51,7 @@ class WeatherBody extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/rainy.png"),
                   Text(
-                    "${data.tempC}",
+                    "${dataModel.tempC}",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   Column(
@@ -57,7 +64,7 @@ class WeatherBody extends StatelessWidget {
               ),
             ),
             Text(
-              "${data.condition}",
+              "${dataModel.condition}",
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

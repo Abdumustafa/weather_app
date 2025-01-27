@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:weather/feature/home_screen/date/model/weather_model.dart';
+import 'package:weather/feature/home_screen/logic/get_weather_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -27,7 +30,13 @@ class SearchScreen extends StatelessWidget {
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
+            child: TextField(
+              onSubmitted: (value) async {
+                BlocProvider.of<GetWeatherCubit>(context)
+                    .getWeather(location: value);
+
+                context.pop();
+              },
               decoration: InputDecoration(
                 labelText: "Search",
                 labelStyle: TextStyle(
@@ -75,3 +84,5 @@ class SearchScreen extends StatelessWidget {
         ));
   }
 }
+
+WeatherModel? weatherModel;
